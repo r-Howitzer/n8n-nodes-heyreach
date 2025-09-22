@@ -6,5 +6,10 @@ out_models
 dist
 yarn.lock
 .yarnrc
+.DS_Store
+.tmp
+tmp
+npm-debug.log*
+.vscode/launch.json
 # Sentry Config File
 .sentryclirc
