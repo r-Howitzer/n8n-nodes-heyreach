@@ -11,7 +11,7 @@ This project make it easy to manage LinkedIn campaigns and automate your outreac
 [Folder Structure](#folder-structure)
 
 ## License
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE.md) file for details.
 
 ## Installation
 ### Community Nodes (Recommended)
