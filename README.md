@@ -58,15 +58,13 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 
 ### 🌐 My Network Actions
 
-- **Retrieve list of network connections for a sender account**  
-  Get all network connections associated with a given sender LinkedIn account.
+- **Retrieve list of network connections for a sender account** - Get all network connections associated with a given sender LinkedIn account.
 
 ---
 
 ### 📊 Stats Actions
 
-- **Retrieve overall statistics**  
-  Get general statistics across the system, such as lead or campaign performance.
+- **Retrieve overall statistics** - Get general statistics across the system, such as lead or campaign performance.
 
 ---
 

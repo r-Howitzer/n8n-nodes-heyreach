@@ -101,7 +101,7 @@ export const campaignOperations:  INodeProperties[] = [
                         body: {
                             campaignId: '={{$parameter["campaignId"]}}',
                             accountLeadPairs: `={{$parameter["accountLeadPairs"].pair.map(pair => ({
-                                    ...pair,
+                                    linkedInAccountId: parseInt(pair.linkedInAccountId),
                                     lead: {
                                         ...pair.lead.details,
                                         customUserFields: pair.lead.details.customUserFields?.field || []

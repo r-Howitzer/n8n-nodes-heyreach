@@ -36,7 +36,7 @@ export const leadOperations: INodeProperties[] = [
                         url: '/lead/AddTags',
                         body: {
                             tags: '={{$parameter["tags"]}}',
-                            leadProfileUrl: '={{$parameter["profileUrl"]}}',
+                            leadProfileUrl: '={{$parameter["additionalFields"]["profileUrl"]}}',
                             leadLinkedInId: '={{$parameter["additionalFields"]["leadLinkedInId"]}}',
                             createTagIfNotExisting: '={{$parameter["createTagIfNotExisting"]}}',
                         },
@@ -67,7 +67,7 @@ export const leadOperations: INodeProperties[] = [
                         url: '/lead/ReplaceTags',
                         body: {
                             tags: '={{$parameter["tags"]}}',
-                            leadProfileUrl: '={{$parameter["profileUrl"]}}',
+                            leadProfileUrl: '={{$parameter["additionalFields"]["profileUrl"]}}',
                             leadLinkedInId: '={{$parameter["additionalFields"]["leadLinkedInId"]}}',
                             createTagIfNotExisting: '={{$parameter["createTagIfNotExisting"]}}',
                         },

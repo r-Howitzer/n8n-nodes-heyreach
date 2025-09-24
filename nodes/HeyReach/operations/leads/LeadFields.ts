@@ -30,6 +30,11 @@ const linkedInIdField: INodeProperties = {
     description: 'LinkedIn ID of the lead (optional if Profile URL is provided)',
 };
 
+const profileUrlOptionalField: INodeProperties = {
+    ...requiredProfileUrlField,
+    required: false,
+};
+
 // Get lead by profile URL
 const getLead: INodeProperties[] = [
     // Required fields
@@ -61,15 +66,6 @@ const getTagsForLead: INodeProperties[] = [
 // Add tags to a lead
 const addTagsToLead: INodeProperties[] = [
     // Required fields
-    {
-        ...requiredProfileUrlField,
-        displayOptions: {
-            show: {
-                resource: ['lead'],
-                operation: ['addTagsToLead'],
-            },
-        },
-    },
     {
         ...requiredTagsField,
         displayOptions: {
@@ -107,23 +103,14 @@ const addTagsToLead: INodeProperties[] = [
         },
         default: {},
         options: [
-            linkedInIdField
+            linkedInIdField,
+            profileUrlOptionalField,
         ],
     },   
 ];
 
 // Replace tags for a lead
 const replaceTags:  INodeProperties[] = [
-    // Required fields
-    {
-        ...requiredProfileUrlField,
-        displayOptions: {
-            show: {
-                resource: ['lead'],
-                operation: ['replaceTags'],
-            },
-        },
-    },
     {
         ...requiredTagsField,
         displayOptions: {
@@ -161,7 +148,8 @@ const replaceTags:  INodeProperties[] = [
         },
         default: {},
         options: [
-            linkedInIdField
+            linkedInIdField,
+            profileUrlOptionalField,
         ],
     },   
 ];
