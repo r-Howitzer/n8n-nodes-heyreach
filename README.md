@@ -3,10 +3,44 @@ This is a **HeyReach** Community Node for n8n, enabling seamless integration wit
 **HeyReach** is a powerful LinkedIn automation platform designed to help you scale and optimize your outreach campaigns.  
 This project make it easy to manage LinkedIn campaigns and automate your outreach directly from your workflows.
 
+[License](#license)  
+[Installation](#installation)  
+[Available Operations](#available-operations)  
+[Credentials](#credentials)  
+[Resources](#resources)  
+[Folder Structure](#folder-structure)
+
 ## License
 This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
 
 ## Installation
+### Community Nodes (Recommended)
+1. Navigate to **n8n** and sign in.
+2. Go to Settings > Community Nodes
+3. Click Install
+4. Enter `n8n-nodes-heyreach` and click Download
+5. Restart your n8n instance
+6. The HeyReach node will appear in your node palette
+--- 
+
+### Local Setup 
+1. Clone the repository.
+2. Run `npm install` to install dependencies.
+3. Before running locally make sure `baseURL` which can be found in `HeyReach.node.ts` is set to dev or staging endpoints.
+4. Run `npm run build` each time you have change or the for the very first time.
+5. Reference the official [n8n documentation](https://docs.n8n.io/integrations/creating-nodes/test/run-node-locally/) for running and testing custom nodes locally
+
+## Credentials
+Steps to obtain **API KEY** needed for authentication.
+1. Go to **[HeyReach app](https://app.heyreach.io/)** and sign in.
+2. Navigate to the **Integrations** section.
+3. Find the **n8n** card and click **Connect Now**.
+4. Click **New API Key** to generate an API key.
+5. **Copy** the generated API key.
+6. In **n8n**, create a new **HeyReach connection**.
+7. **Paste** the API key into the connection settings and save it.  
+
+✅ That’s it — your HeyReach account is now connected to n8n! 🎉
 
 ## Available Operations
 
@@ -73,40 +107,9 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 - **Retrieve all webhooks** - Get a list of all configured webhooks.
 - **Retrieve a single webhook** - Get the details of a specific webhook.
 
-## Setup
-### Community Nodes (Recommended)
-1. Navigate to **n8n** and sign in.
-2. Go to Settings > Community Nodes
-3. Click Install
-4. Enter `n8n-nodes-heyreach` and click Download
-5. Restart your n8n instance
-6. The HeyReach node will appear in your node palette
---- 
-
-### Local Setup 
-1. Clone the repository.
-2. Run `npm install` to install dependencies.
-3. Before running locally make sure `baseURL` which can be found in `HeyReach.node.ts` is set to dev or staging endpoints.
-4. Run `npm run build` each time you have change or the for the very first time.
-5. Reference the official [n8n documentation](https://docs.n8n.io/integrations/creating-nodes/test/run-node-locally/) for running and testing custom nodes locally
-
-## Credentials
-Steps to obtain **API KEY** needed for authentication.
-1. Go to **[HeyReach app](https://app.heyreach.io/)** and sign in.
-2. Navigate to the **Integrations** section.
-3. Find the **n8n** card and click **Connect Now**.
-4. Click **New API Key** to generate an API key.
-5. **Copy** the generated API key.
-6. In **n8n**, create a new **HeyReach connection**.
-7. **Paste** the API key into the connection settings and save it.  
-
-✅ That’s it — your HeyReach account is now connected to n8n! 🎉
-
 ## Resources
 
-  [HeyReach API documentation](https://documenter.getpostman.com/view/23808049/2sA2xb5F75#61f5ef5d-5f31-4da9-b6af-ef0a6f128146)  
-  simon has to change: link to recorded videos.
-  
+  [HeyReach API documentation](https://documenter.getpostman.com/view/23808049/2sA2xb5F75#61f5ef5d-5f31-4da9-b6af-ef0a6f128146)    
 
 ## Folder Structure
 

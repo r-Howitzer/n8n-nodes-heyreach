@@ -22,7 +22,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/r-Howitzer/HowitzerLinkedIn-n8n.git"
+        "url": "https://github.com/r-Howitzer/n8n-nodes-heyreach"
     },
     "engines": {
         "node": ">=20.15"
