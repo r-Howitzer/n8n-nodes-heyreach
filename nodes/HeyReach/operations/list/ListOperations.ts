@@ -13,6 +13,71 @@ export const listOperations: INodeProperties[] = [
         },
         options: [
             {
+                name: 'Add Leads',
+                value: 'addLeadsToList',
+                action: 'Add leads to a list',
+                routing: {
+                    request: {
+                        method: 'POST',
+                        url: '/list/AddLeadsToList',
+                         body: {
+                            listId: '={{$parameter["listId"]}}',
+                            leads: `={{$parameter["wrapperLeads"]["leads"].map(lead => ({
+                                ...lead,
+                                customUserFields: lead.customUserFields?.field || []
+                            }))}}`,
+                        },
+                    },
+                },
+            },
+            {
+                name: 'Create Empty',
+                value: 'createEmptyList',
+                action: 'Create an empty list',
+                routing: {
+                    request: {
+                        method: 'POST',
+                        url: '/list/CreateEmptyList',
+                        body: {
+                            name: '={{$parameter["listName"]}}',
+                            type: '={{$parameter["listType"]}}',
+                        },
+                    },
+                },
+            },
+                        {
+                name: 'Delete Leads (By LinkedIn ID)',
+                value: 'deleteLeadsFromList',
+                // eslint-disable-next-line n8n-nodes-base/node-param-operation-option-action-miscased
+                action: 'Delete leads from a list by LinkedIn ID',
+                routing: {
+                    request: {
+                        method: 'DELETE',
+                        url: '/list/DeleteLeadsFromList',
+                        body: {
+                            listId: '={{$parameter["listId"]}}',
+                            leadMemberIds: '={{$parameter["leadMemberIds"]}}',
+                        },
+                    },
+                },
+            },
+            {
+                name: 'Delete Leads (By Profile URL)',
+                value: 'deleteLeadsFromListByProfileUrl',
+                // eslint-disable-next-line n8n-nodes-base/node-param-operation-option-action-miscased
+                action: 'Delete leads from a list by LinkedIn profile URL',
+                routing: {
+                    request: {
+                        method: 'DELETE',
+                        url: '/list/DeleteLeadsFromListByProfileUrl',
+                        body: {
+                            listId: '={{$parameter["listId"]}}',
+                            profileUrls: '={{$parameter["leadProfileUrls"]}}',
+                        },
+                    },
+                },
+            },
+            {
                 name: 'Get',
                 value: 'getListById',
                 action: 'Retrieve a list',
@@ -25,17 +90,16 @@ export const listOperations: INodeProperties[] = [
                 },
             },
             {
-                name: 'Get All',
-                value: 'getAllLists',
-                action: 'Retrieve all lists',
+                name: 'Get Companies',
+                value: 'getCompaniesFromList',
+                action: 'Retrieve companies from a list',
                 routing: {
                     request: {
                         method: 'POST',
-                        url: '/list/GetAll',
+                        url: '/list/GetCompaniesFromList',
                         body: {
-                            campaignIds: '={{$parameter["additionalFields"]["campaignIds"]}}',
+                            listId: '={{$parameter["listId"]}}',
                             keyword: '={{$parameter["additionalFields"]["keyword"]}}',
-                            listType: '={{$parameter["additionalFields"]["listType"]}}',
                             offset: '={{$parameter["offset"]}}',
                             limit: '={{$parameter["limit"]}}',
                         },
@@ -64,71 +128,6 @@ export const listOperations: INodeProperties[] = [
                 },
             },
             {
-                name: 'Delete Leads (By LinkedIn ID)',
-                value: 'deleteLeadsFromList',
-                action: 'Delete leads from a list by LinkedIn ID',
-                routing: {
-                    request: {
-                        method: 'DELETE',
-                        url: '/list/DeleteLeadsFromList',
-                        body: {
-                            listId: '={{$parameter["listId"]}}',
-                            leadMemberIds: '={{$parameter["leadMemberIds"]}}',
-                        },
-                    },
-                },
-            },
-            {
-                name: 'Delete Leads (By Profile URL)',
-                value: 'deleteLeadsFromListByProfileUrl',
-                action: 'Delete leads from a list by LinkedIn profile URL',
-                routing: {
-                    request: {
-                        method: 'DELETE',
-                        url: '/list/DeleteLeadsFromListByProfileUrl',
-                        body: {
-                            listId: '={{$parameter["listId"]}}',
-                            profileUrls: '={{$parameter["leadProfileUrls"]}}',
-                        },
-                    },
-                },
-            },
-            {
-                name: 'Get Companies',
-                value: 'getCompaniesFromList',
-                action: 'Retrieve companies from a list',
-                routing: {
-                    request: {
-                        method: 'POST',
-                        url: '/list/GetCompaniesFromList',
-                        body: {
-                            listId: '={{$parameter["listId"]}}',
-                            keyword: '={{$parameter["additionalFields"]["keyword"]}}',
-                            offset: '={{$parameter["offset"]}}',
-                            limit: '={{$parameter["limit"]}}',
-                        },
-                    },
-                },
-            },
-            {
-                name: 'Add Leads',
-                value: 'addLeadsToList',
-                action: 'Add leads to a list',
-                routing: {
-                    request: {
-                        method: 'POST',
-                        url: '/list/AddLeadsToList',
-                         body: {
-                            listId: '={{$parameter["listId"]}}',
-                            leads: `={{$parameter["wrapperLeads"]["leads"].map(lead => ({
-                                ...lead,
-                                customUserFields: lead.customUserFields?.field || []
-                            }))}}`,
-                        },
-                    },
-                },
-            },
-            {
                 name: 'Get Lists',
                 value: 'getListsForLead',
                 action: 'Retrieve lists associated with a specific lead',
@@ -147,16 +146,19 @@ export const listOperations: INodeProperties[] = [
                 },
             },
             {
-                name: 'Create Empty',
-                value: 'createEmptyList',
-                action: 'Create an empty list',
+                name: 'Get Many',
+                value: 'getAllLists',
+                action: 'Retrieve all lists',
                 routing: {
                     request: {
                         method: 'POST',
-                        url: '/list/CreateEmptyList',
+                        url: '/list/GetAll',
                         body: {
-                            name: '={{$parameter["listName"]}}',
-                            type: '={{$parameter["listType"]}}',
+                            campaignIds: '={{$parameter["additionalFields"]["campaignIds"]}}',
+                            keyword: '={{$parameter["additionalFields"]["keyword"]}}',
+                            listType: '={{$parameter["additionalFields"]["listType"]}}',
+                            offset: '={{$parameter["offset"]}}',
+                            limit: '={{$parameter["limit"]}}',
                         },
                     },
                 },

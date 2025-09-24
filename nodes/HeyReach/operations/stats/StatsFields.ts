@@ -16,6 +16,7 @@ export const statsFields: INodeProperties[] = [
                 operation: ['getOverallStats'],
             },
         },
+        // eslint-disable-next-line n8n-nodes-base/node-param-default-wrong-for-number
         default: [],
         description: 'Array of LinkedIn sender account IDs to filter by. If empty, all senders are included.',
     },
@@ -32,6 +33,7 @@ export const statsFields: INodeProperties[] = [
                 operation: ['getOverallStats'],
             },
         },
+        // eslint-disable-next-line n8n-nodes-base/node-param-default-wrong-for-number
         default: [],
         description: 'Array of campaign IDs to filter by. If empty, all campaigns are included.',
     },

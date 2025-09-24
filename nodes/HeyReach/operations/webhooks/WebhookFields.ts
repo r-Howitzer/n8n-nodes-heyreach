@@ -56,8 +56,8 @@ const eventTypeField: INodeProperties = {
         name: WebhookEventLabels[value as WebhookEventType],
         value,
     })),
-    default: WebhookEventType.CONNECTION_REQUEST_SENT,
-    description: `The event type that triggers the webhook.`,
+    default: '',
+    description: 'The event type that triggers the webhook',
 };
 
 const campaignIdsField: INodeProperties = {
@@ -67,6 +67,7 @@ const campaignIdsField: INodeProperties = {
     typeOptions: {
         multipleValues: true,
     },
+    // eslint-disable-next-line n8n-nodes-base/node-param-default-wrong-for-number
     default: [],
     description: 'A list of campaign IDs to associate with the webhook. If empty, the webhook applies to all campaigns.',
 };
@@ -176,7 +177,7 @@ const updateWebhookFields: INodeProperties[] = [
                 name: 'isActive',
                 type: 'boolean',
                 default: false,
-                description: 'Indicates whether the webhook is active. Leave null to keep the current status.',
+                description: 'Whether the webhook is active',
             },
         ],
     },

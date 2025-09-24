@@ -29,6 +29,10 @@ export const getPaginationFields = (
         displayName: 'Limit',
         name: 'limit',
         type: 'number',
+         typeOptions: {
+            minValue: 1
+        },
+        // eslint-disable-next-line n8n-nodes-base/node-param-default-wrong-for-limit
         default: 10,
         required: true,
         description: LIMIT_DESCRIPTION_100,
@@ -69,6 +73,10 @@ export const getPaginationFields1000 = (
         displayName: 'Limit',
         name: 'limit',
         type: 'number',
+        typeOptions: {
+            minValue: 1
+        },
+        // eslint-disable-next-line n8n-nodes-base/node-param-default-wrong-for-limit
         default: 100,
         required: true,
         description: LIMIT_DESCRIPTION_1000,

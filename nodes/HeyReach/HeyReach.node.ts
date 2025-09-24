@@ -1,4 +1,4 @@
-import { INodeType, INodeTypeDescription, NodeConnectionType } from 'n8n-workflow';
+import { INodeType, INodeTypeDescription } from 'n8n-workflow';
 import { campaignOperations } from './operations/campaigns/CampaignOperations';
 import { campaignFields } from './operations/campaigns/CampaignFields';
 import { statsFields } from './operations/stats/StatsFields';
@@ -19,7 +19,7 @@ import { leadOperations } from './operations/leads/LeadOperations';
 export class HeyReach implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'HeyReach API',
-		name: 'HeyReach',
+		name: 'heyReach',
 		icon: 'file:heyreach.svg',
 		group: ['transform'],
 		version: 1,
@@ -28,11 +28,11 @@ export class HeyReach implements INodeType {
 		defaults: {
 			name: 'HeyReach API',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+        inputs: ['main'],
+        outputs: ['main'],
 		credentials: [
 			{
-				name: 'HeyReachApi',
+				name: 'heyReachApi',
 				required: true,
 			},
 		],
@@ -75,7 +75,7 @@ export class HeyReach implements INodeType {
                         value: 'myNetwork' 
                     },
                     { 
-                        name: 'Stats', 
+                        name: 'Stat', 
                         value: 'stats' 
                     },
                     {   

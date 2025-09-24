@@ -13,8 +13,9 @@ export const linkedInAccountOperations: INodeProperties[] = [
         },
         options: [
             {
-                name: 'Get All',
+                name: 'Get Many',
                 value: 'getAllLinkedInAccounts',
+                // eslint-disable-next-line n8n-nodes-base/node-param-operation-option-action-miscased
                 action: 'Retrieve a list of LinkedIn accounts',
                 routing: {
                     request: {
@@ -31,6 +32,7 @@ export const linkedInAccountOperations: INodeProperties[] = [
             {
                 name: 'Get',
                 value: 'getLinkedInAccountById',
+                // eslint-disable-next-line n8n-nodes-base/node-param-operation-option-action-miscased
                 action: 'Retrieve a LinkedIn account',
                 routing: {
                     request: {

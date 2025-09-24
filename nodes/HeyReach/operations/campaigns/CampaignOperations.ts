@@ -13,84 +13,6 @@ export const campaignOperations:  INodeProperties[] = [
         },
         options: [
             {
-                name: 'Get All',
-                value: 'getAll',
-                action: 'Retrieve all campaigns',
-                routing: {
-                    request: {
-                        method: 'POST',
-                        url: '/campaign/GetAll',
-                        body: {
-                            keyword: '={{$parameter["additionalFields"]["keyword"]}}',
-                            statuses: '={{$parameter["additionalFields"]["statuses"]}}',
-                            accountIds: '={{$parameter["additionalFields"]["accountIds"]}}',
-                            offset: '={{$parameter["offset"]}}',
-                            limit: '={{$parameter["limit"]}}',
-                        },
-                    },
-                },
-            },
-            {
-                name: 'Get',
-                value: 'getById',
-                action: 'Retrieve a campaign',
-                routing: {
-                    request: {
-                        method: 'GET',
-                        url: '/campaign/GetById',
-                        qs: {
-                            campaignId: '={{$parameter["campaignId"]}}',
-                        },
-                    },
-                },
-            },
-            {
-                name: 'Resume',
-                value: 'resume',
-                action: 'Resume a campaign',
-                routing: {
-                    request: {
-                        method: 'POST',
-                        url: '/campaign/Resume',
-                        qs: { 
-                            campaignId: '={{$parameter["campaignId"]}}'
-                        },
-                        body: {},
-                    },
-                },
-            },
-            {
-                name: 'Pause',
-                value: 'pause',
-                action: 'Pause a campaign',
-                routing: {
-                    request: {
-                        method: 'POST',
-                        url: '/campaign/Pause',
-                        qs: { 
-                            campaignId: '={{$parameter["campaignId"]}}' 
-                        },
-                        body: {},
-                    },
-                },
-            },
-            {
-                name: 'Stop Lead',
-                value: 'stopLeadInCampaign',
-                action: 'Stop a lead in campaign',
-                routing: {
-                    request: {
-                        method: 'POST',
-                        url: '/campaign/StopLeadInCampaign',
-                        body: {
-                            campaignId: '={{$parameter["campaignId"]}}',
-                            leadMemberId: '={{$parameter["leadMemberId"]}}',
-                            leadUrl: '={{$parameter["leadUrl"]}}',
-                        },
-                    },
-                },
-            },
-            {
                 name: 'Add Leads',
                 value: 'addLeads',
                 action: 'Add leads to campaign',
@@ -107,6 +29,20 @@ export const campaignOperations:  INodeProperties[] = [
                                         customUserFields: pair.lead.details.customUserFields?.field || []
                                     }
                                 }))}}`,
+                        },
+                    },
+                },
+            },
+            {
+                name: 'Get',
+                value: 'getById',
+                action: 'Retrieve a campaign',
+                routing: {
+                    request: {
+                        method: 'GET',
+                        url: '/campaign/GetById',
+                        qs: {
+                            campaignId: '={{$parameter["campaignId"]}}',
                         },
                     },
                 },
@@ -131,7 +67,25 @@ export const campaignOperations:  INodeProperties[] = [
                 },
             },
             {
-                name: 'Get All For Lead',
+                name: 'Get Many',
+                value: 'getAll',
+                action: 'Retrieve all campaigns',
+                routing: {
+                    request: {
+                        method: 'POST',
+                        url: '/campaign/GetAll',
+                        body: {
+                            keyword: '={{$parameter["additionalFields"]["keyword"]}}',
+                            statuses: '={{$parameter["additionalFields"]["statuses"]}}',
+                            accountIds: '={{$parameter["additionalFields"]["accountIds"]}}',
+                            offset: '={{$parameter["offset"]}}',
+                            limit: '={{$parameter["limit"]}}',
+                        },
+                    },
+                },
+            },
+            {
+                name: 'Get Many For Lead',
                 value: 'getCampaignsForLead',
                 action: 'Retrieve campaigns for a lead',
                 routing: {
@@ -144,6 +98,52 @@ export const campaignOperations:  INodeProperties[] = [
                             profileUrl: '={{$parameter["profileUrl"]}}',
                             offset: '={{$parameter["offset"]}}',
                             limit: '={{$parameter["limit"]}}',
+                        },
+                    },
+                },
+            },
+            {
+                name: 'Pause',
+                value: 'pause',
+                action: 'Pause a campaign',
+                routing: {
+                    request: {
+                        method: 'POST',
+                        url: '/campaign/Pause',
+                        qs: { 
+                            campaignId: '={{$parameter["campaignId"]}}' 
+                        },
+                        body: {},
+                    },
+                },
+            },
+            {
+                name: 'Resume',
+                value: 'resume',
+                action: 'Resume a campaign',
+                routing: {
+                    request: {
+                        method: 'POST',
+                        url: '/campaign/Resume',
+                        qs: { 
+                            campaignId: '={{$parameter["campaignId"]}}'
+                        },
+                        body: {},
+                    },
+                },
+            },
+            {
+                name: 'Stop Lead',
+                value: 'stopLeadInCampaign',
+                action: 'Stop a lead in campaign',
+                routing: {
+                    request: {
+                        method: 'POST',
+                        url: '/campaign/StopLeadInCampaign',
+                        body: {
+                            campaignId: '={{$parameter["campaignId"]}}',
+                            leadMemberId: '={{$parameter["leadMemberId"]}}',
+                            leadUrl: '={{$parameter["leadUrl"]}}',
                         },
                     },
                 },

@@ -7,7 +7,7 @@ const requiredProfileUrlField: INodeProperties = {
     type: 'string',
     default: '',
     required: true,
-    description: 'Full LinkedIn profile URL of the lead. Example: https://www.linkedin.com/in/john-doe-123456789/',
+    description: 'Full LinkedIn profile URL of the lead. Example: https://www.linkedin.com/in/john-doe-123456789/.',
 };
 
 const requiredTagsField: INodeProperties = {
@@ -86,7 +86,7 @@ const addTagsToLead: INodeProperties[] = [
             },
         },
         default: true,
-        description: `If true, tags that do not exist will be created. If false and a tag doesn't exist, a Bad Request response will be returned. Defaults to true.`,
+        description: 'Whether to create tags that don\'t exist. If false and a tag doesn\'t exist, a Bad Request response will be returned. Defaults to true.',
     },
 
     // Additional fields
@@ -131,7 +131,7 @@ const replaceTags:  INodeProperties[] = [
             },
         },
         default: false,
-        description: `If true, creates tags that don't exist. If false and a tag doesn't exist, a Bad Request response will be returned. Defaults to false.`,
+        description: 'Whether to create tags that don\'t exist. If false and a tag doesn\'t exist, a Bad Request response will be returned. Defaults to false.',
     },
 
     // Additional fields collection

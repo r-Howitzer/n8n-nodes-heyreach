@@ -46,7 +46,7 @@ const getAllListsFields: INodeProperties[] = [
                 name: 'keyword',
                 type: 'string',
                 default: '',
-                description: 'Search keyword to filter lists by name.',
+                description: 'Search keyword to filter lists by name',
             },
             {
                 displayName: 'Campaign IDs',
@@ -55,8 +55,9 @@ const getAllListsFields: INodeProperties[] = [
                 typeOptions: {
                     multipleValues: true,
                 },
+                // eslint-disable-next-line n8n-nodes-base/node-param-default-wrong-for-number
                 default: [],
-                description: 'Array of campaign IDs to filter lists associated with specific campaigns. Example: [123, 456]',
+                description: 'Array of campaign IDs to filter lists associated with specific campaigns. Example: [123, 456].',
             },
             {
                 displayName: 'List Type',
@@ -66,6 +67,7 @@ const getAllListsFields: INodeProperties[] = [
                     name: ListTypeLabels[value as ListType],
                     value,
                 })),
+                // eslint-disable-next-line n8n-nodes-base/node-param-default-wrong-for-options
                 default: null,
                 description: `The type of list to retrieve. Acceptable values: ${Object.keys(ListType).join(', ')}.`,
             },
@@ -78,7 +80,7 @@ const getListByIdFields: INodeProperties[] = [
     // Required fields
     {
         ...listIdField,
-        description: 'The ID of the lead or company list to retrieve.',
+        description: 'The ID of the lead or company list to retrieve',
         displayOptions: {
             show: {
                 resource: ['list'],
@@ -94,7 +96,7 @@ const getLeadsFromListFields: INodeProperties[] = [
     ...getPaginationFields1000('list', 'getLeadsFromList'),
     {
         ...listIdField,
-        description: 'The ID of the lead list to retrieve leads from.',
+        description: 'The ID of the lead list to retrieve leads from',
         displayOptions: {
             show: {
                 resource: ['list'],
@@ -118,39 +120,39 @@ const getLeadsFromListFields: INodeProperties[] = [
         default: {},
         options: [
             {
-                displayName: 'Keyword',
-                name: 'keyword',
-                type: 'string',
-                default: '',
-                description: 'A search term to filter leads by lead name or other relevant fields.',
-            },
-            {
-                displayName: 'Lead Profile URL',
-                name: 'leadProfileUrl',
-                type: 'string',
-                default: '',
-                description: `The full LinkedIn profile URL of the lead. Must follow the format: 'https://www.linkedin.com/in/username/'. Leave null if not filtering by profile URL.`,
-            },
-            {
-                displayName: 'Lead LinkedIn ID',
-                name: 'leadLinkedInId',
-                type: 'string',
-                default: '',
-                description: `The LinkedIn ID of the lead. Can be obtained from other API responses (e.g., 'linkedin_id' field).`,
-            },
-            {
                 displayName: 'Created From',
                 name: 'createdFrom',
                 type: 'dateTime',
                 default: '',
-                description: 'Filters leads created on or after this timestamp.',
+                description: 'Filters leads created on or after this timestamp',
             },
             {
                 displayName: 'Created To',
                 name: 'createdTo',
                 type: 'dateTime',
                 default: '',
-                description: 'Filters leads created before or at this timestamp.',
+                description: 'Filters leads created before or at this timestamp',
+            },
+                        {
+                displayName: 'Keyword',
+                name: 'keyword',
+                type: 'string',
+                default: '',
+                description: 'A search term to filter leads by lead name or other relevant fields',
+            },
+            {
+                displayName: 'Lead LinkedIn ID',
+                name: 'leadLinkedInId',
+                type: 'string',
+                default: '',
+                description: 'The LinkedIn ID of the lead. Can be obtained from other API responses (e.g., \'linkedin_id\' field).',
+            },
+            {
+                displayName: 'Lead Profile URL',
+                name: 'leadProfileUrl',
+                type: 'string',
+                default: '',
+                description: 'The full LinkedIn profile URL of the lead. Must follow the format: \'https://www.linkedin.com/in/username/\'. Leave null if not filtering by profile URL',
             },
         ],
     },
@@ -161,7 +163,7 @@ const deleteLeadsFromListFields: INodeProperties[] = [
     // Required fields
     {
         ...listIdField,
-        description: 'The ID of the lead list from which the leads will be deleted.',
+        description: 'The ID of the lead list from which the leads will be deleted',
         displayOptions: {
             show: {
                 resource: ['list'],
@@ -178,7 +180,7 @@ const deleteLeadsFromListFields: INodeProperties[] = [
         },
         default: [],
         required: true,
-        description: `Array of LinkedIn IDs of the leads to be deleted. In API responses, this ID may be called 'linkedin_id'.`,
+        description: 'Array of LinkedIn IDs of the leads to be deleted. In API responses, this ID may be called \'linkedin_id\'.',
         displayOptions: {
             show: {
                 resource: ['list'],
@@ -210,7 +212,7 @@ const deleteLeadsFromListByProfileUrlFields: INodeProperties[] = [
         },
         default: [],
         required: true,
-        description: `Array of LinkedIn profile URLs of the leads to be deleted. Example: ['https://www.linkedin.com/in/username/']`,
+        description: 'Array of LinkedIn profile URLs of the leads to be deleted. Example: [\'https://www.linkedin.com/in/username/\'].',
         displayOptions: {
             show: {
                 resource: ['list'],
@@ -225,7 +227,7 @@ const addLeadsToListFields: INodeProperties[] = [
     // Required fields
     {
         ...listIdField,
-        description: 'The ID of the lead list to which the leads will be added.',
+        description: 'The ID of the lead list to which the leads will be added',
         displayOptions: {
             show: {
                 resource: ['list'],
@@ -264,7 +266,7 @@ const getCompaniesFromListFields: INodeProperties[] = [
     ...getPaginationFields1000('list', 'getCompaniesFromList'),
     {
         ...listIdField,
-        description: 'The ID of the company list to retrieve companies from.',
+        description: 'The ID of the company list to retrieve companies from',
         displayOptions: {
             show: {
                 resource: ['list'],
@@ -292,7 +294,7 @@ const getCompaniesFromListFields: INodeProperties[] = [
                 name: 'keyword',
                 type: 'string',
                 default: '',
-                description: 'A keyword to filter companies by name or other attributes.',
+                description: 'A keyword to filter companies by name or other attributes',
             },
         ],
     },
@@ -322,21 +324,22 @@ const getListsForLeadFields: INodeProperties[] = [
                 name: 'email',
                 type: 'string',
                 default: '',
-                description: 'The email address of the lead.',
+                description: 'The email address of the lead',
+                placeholder: 'example@example.com'
             },
             {
                 displayName: 'Lead LinkedIn ID',
                 name: 'linkedinId',
                 type: 'string',
                 default: '',
-                description: `The LinkedIn ID of the lead. Can be obtained from other API responses (e.g., 'linkedin_id' field).`,
+                description: 'The LinkedIn ID of the lead. Can be obtained from other API responses (e.g., \'linkedin_id\' field).',
             },
             {
                 displayName: 'Lead Profile URL',
                 name: 'profileUrl',
                 type: 'string',
                 default: '',
-                description: `The full LinkedIn profile URL of the lead. Must follow the format: 'https://www.linkedin.com/in/username/'. Leave null if not filtering by profile URL.`,
+                description: 'The full LinkedIn profile URL of the lead. Must follow the format: \'https://www.linkedin.com/in/username/\'. Leave null if not filtering by profile URL',
             },
         ],
     },
@@ -351,7 +354,7 @@ const createEmptyListFields: INodeProperties[] = [
         type: 'string',
         default: '',
         required: true,
-        description: 'The name of the list to create.',
+        description: 'The name of the list to create',
         displayOptions: {
             show: {
                 resource: ['list'],
@@ -368,7 +371,7 @@ const createEmptyListFields: INodeProperties[] = [
             name: ListTypeLabels[value as ListType],
             value,
         })),
-        default: ListType.USER_LIST,
+        default: '',
         description: `The type of list to create. Acceptable values: ${Object.keys(ListType).join(', ')}.`,
         displayOptions: {
             show: {

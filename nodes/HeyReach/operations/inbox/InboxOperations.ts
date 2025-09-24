@@ -13,8 +13,9 @@ export const inboxOperations: INodeProperties[] = [
         },
         options: [
             {
-                name: 'Get All',
+                name: 'Get Many',
                 value: 'getConversationsV2',
+                // eslint-disable-next-line n8n-nodes-base/node-param-operation-option-action-miscased
                 action: 'Retrieve all LinkedIn conversations',
                 routing: {
                     request: {
@@ -39,6 +40,7 @@ export const inboxOperations: INodeProperties[] = [
             {
                 name: 'Get Chatroom',
                 value: 'getChatroom',
+                // eslint-disable-next-line n8n-nodes-base/node-param-operation-option-action-miscased
                 action: 'Retrieve a specific LinkedIn conversation and messages',
                 routing: {
                     request: {
@@ -50,6 +52,7 @@ export const inboxOperations: INodeProperties[] = [
             {
                 name: 'Send Message',
                 value: 'sendMessage',
+                // eslint-disable-next-line n8n-nodes-base/node-param-operation-option-action-miscased
                 action: 'Send a message to a LinkedIn conversation',
                 routing: {
                     request: {

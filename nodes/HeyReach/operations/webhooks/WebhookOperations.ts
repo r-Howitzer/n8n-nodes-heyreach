@@ -13,16 +13,32 @@ export const webhookOperations: INodeProperties[] = [
         },
         options: [
             {
-                name: 'Get All',
-                value: 'getAllWebhooks',
-                action: 'Retrieve all webhooks',
+                name: 'Create',
+                value: 'createWebhook',
+                action: 'Create a new webhook',
                 routing: {
                     request: {
                         method: 'POST',
-                        url: '/webhooks/GetAllWebhooks',
+                        url: '/webhooks/CreateWebhook',
                         body: {
-                            offset: '={{$parameter["offset"]}}',
-                            limit: '={{$parameter["limit"]}}',
+                            webhookName: '={{$parameter["webhookName"]}}',
+                            webhookUrl: '={{$parameter["webhookUrl"]}}',
+                            eventType: '={{$parameter["eventType"]}}',
+                            campaignIds: '={{ $parameter["campaignIds"] ?? [] }}',
+                        },
+                    },
+                },
+            },
+            {
+                name: 'Delete',
+                value: 'deleteWebhook',
+                action: 'Delete a webhook',
+                routing: {
+                    request: {
+                        method: 'DELETE',
+                        url: '/webhooks/DeleteWebhook',
+                        qs: {
+                            webhookId: '={{$parameter["webhookId"]}}',
                         },
                     },
                 },
@@ -42,18 +58,16 @@ export const webhookOperations: INodeProperties[] = [
                 },
             },
             {
-                name: 'Create',
-                value: 'createWebhook',
-                action: 'Create a new webhook',
+                name: 'Get Many',
+                value: 'getAllWebhooks',
+                action: 'Retrieve all webhooks',
                 routing: {
                     request: {
                         method: 'POST',
-                        url: '/webhooks/CreateWebhook',
+                        url: '/webhooks/GetAllWebhooks',
                         body: {
-                            webhookName: '={{$parameter["webhookName"]}}',
-                            webhookUrl: '={{$parameter["webhookUrl"]}}',
-                            eventType: '={{$parameter["eventType"]}}',
-                            campaignIds: '={{ $parameter["campaignIds"] ?? [] }}',
+                            offset: '={{$parameter["offset"]}}',
+                            limit: '={{$parameter["limit"]}}',
                         },
                     },
                 },
@@ -77,20 +91,7 @@ export const webhookOperations: INodeProperties[] = [
                     },
                 },
             },
-            {
-                name: 'Delete',
-                value: 'deleteWebhook',
-                action: 'Delete a webhook',
-                routing: {
-                    request: {
-                        method: 'DELETE',
-                        url: '/webhooks/DeleteWebhook',
-                        qs: {
-                            webhookId: '={{$parameter["webhookId"]}}',
-                        },
-                    },
-                },
-            },
+           
         ],
         default: 'createWebhook',
     },

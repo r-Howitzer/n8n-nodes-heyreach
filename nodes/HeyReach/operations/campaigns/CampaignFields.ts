@@ -57,7 +57,7 @@ const getAllCampaignsFields: INodeProperties[] = [
 				name: 'keyword',
 				type: 'string',
 				default: '',
-				description: 'A search keyword to filter campaigns by name or other relevant text fields. Leave empty to fetch all.'
+				description: 'A search keyword to filter campaigns by name or other relevant text fields, leave empty empty to fetch all'
 			},
 			{
 				displayName: 'Statuses',
@@ -77,8 +77,9 @@ const getAllCampaignsFields: INodeProperties[] = [
 				typeOptions: {
 					multipleValues: true,
 				},
+				// eslint-disable-next-line n8n-nodes-base/node-param-default-wrong-for-number
 				default: [],
-				description: 'Array of account IDs to filter results. Enter as a JSON array of integers, e.g., [1, 2, 3]',
+				description: 'Array of account IDs to filter results. Enter as a JSON array of integers, e.g., [1, 2, 3].',
 			},
 		],
 	},
@@ -89,7 +90,7 @@ const getCampaignByIdFields: INodeProperties[] = [
 	// Required fields
 	{
 		...campaignIdField,
-		description: 'The ID of the campaign to retrieve.',
+		description: 'The ID of the campaign to retrieve',
 		displayOptions: {
 			show: {
 				resource: ['campaign'],
@@ -104,7 +105,7 @@ const resumeCampaignByIdFields: INodeProperties[] = [
 	// Required fields
 	{
 		...campaignIdField,
-		description: 'The ID of the campaign to resume.',
+		description: 'The ID of the campaign to resume',
 		displayOptions: {
 			show: {
 				resource: ['campaign'],
@@ -119,7 +120,7 @@ const pauseCampaignByIdFields: INodeProperties[] = [
 	// Required fields
 	{
 		...campaignIdField,
-		description: 'The ID of the campaign to pause.',
+		description: 'The ID of the campaign to pause',
 		displayOptions: {
 			show: {
 				resource: ['campaign'],
@@ -134,7 +135,7 @@ const stopLeadInCampaignFields: INodeProperties[] = [
 	// Required fields
 	{
 		...campaignIdField,
-		description: 'The ID of the campaign from which to stop the lead.',
+		description: 'The ID of the campaign from which to stop the lead',
 		displayOptions: {
 			show: {
 				resource: ['campaign'],
@@ -147,7 +148,7 @@ const stopLeadInCampaignFields: INodeProperties[] = [
 		name: 'leadMemberId',
 		type: 'string',
 		default: '',
-		description: `The LinkedIn Member ID of the lead to be stopped (also referred to as 'linkedin_id').`,
+		description: 'The LinkedIn Member ID of the lead to be stopped (also referred to as \'linkedin_id\')',
 		displayOptions: {
 			show: {
 				resource: ['campaign'],
@@ -266,14 +267,14 @@ const getLeadsFromCampaign: INodeProperties[] = [
 				name: 'timeFrom',
 				type: 'dateTime',
 				default: '',
-				description: 'Filters leads created on or after this timestamp.',
+				description: 'Filters leads created on or after this timestamp',
 			},
 			{
 				displayName: 'Time To',
 				name: 'timeTo',
 				type: 'dateTime',
 				default: '',
-				description: 'Filters leads created before or at this timestamp.',
+				description: 'Filters leads created before or at this timestamp',
 			},
 			{
 				displayName: 'Time Filter',
@@ -299,7 +300,7 @@ const getCampaignsForLeadFields: INodeProperties[] = [
 		name: 'profileUrl',
 		type: 'string',
 		default: '',
-		description: `The full LinkedIn profile URL of the lead. Must follow the format: 'https://www.linkedin.com/in/username/'. Leave empty if not filtering by profile URL.`,
+		description: 'The full LinkedIn profile URL of the lead. Must follow the format: \'https://www.linkedin.com/in/username/\'. Leave empty if not filtering by profile URL.',
 		displayOptions: {
 			show: {
 				resource: ['campaign'],		
@@ -328,13 +329,14 @@ const getCampaignsForLeadFields: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'The email address of the lead. Leave empty if not filtering by email.',
+				placeholder: 'example@example.com'
 			},
 			{
 				displayName: 'LinkedIn ID',
 				name: 'linkedinId',
 				type: 'string',
 				default: '',
-				description: `The LinkedIn ID of the lead. Can be obtained from other API responses (e.g., 'linkedin_id' field). Leave empty if not filtering by LinkedIn ID.`,
+				description: 'The LinkedIn ID of the lead. Can be obtained from other API responses (e.g., \'linkedin_id\' field). Leave empty if not filtering by LinkedIn ID.',
 			},
         ],
     },   
