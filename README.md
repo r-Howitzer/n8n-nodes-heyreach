@@ -79,7 +79,7 @@ Steps to obtain **API KEY** needed for authentication.
 
 ### 📋 List Actions
 
-- **Retrieve a list** - Get a specific list of leads by ID.
+- **Retrieve a list** - Get a specific list of leads.
 - **Retrieve all lists** - Get all available lead lists.
 - **Retrieve leads from a list** - Get all leads within a specific list.
 - **Delete leads from a list by LinkedIn ID** - Remove one or more leads from a list using their LinkedIn IDs.
