@@ -1,4 +1,5 @@
-import { INodeProperties } from 'n8n-workflow';
+import { IExecuteSingleFunctions, IHttpRequestOptions, INodeProperties } from 'n8n-workflow';
+import { cleanNestedExpression } from '../common/CommonFields';
 
 export const linkedInAccountOperations: INodeProperties[] = [
     {
@@ -27,6 +28,28 @@ export const linkedInAccountOperations: INodeProperties[] = [
                             limit: '={{$parameter["limit"]}}',
                         },
                     },
+                    send: {
+                        preSend: [
+                            async function (
+                                this: IExecuteSingleFunctions,
+                                requestOptions: IHttpRequestOptions
+                            ): Promise<IHttpRequestOptions> {
+                                const offset = this.getNodeParameter('offset');
+                                const limit = this.getNodeParameter('limit');
+                                const keyword = cleanNestedExpression(this.getNodeParameter('additionalFields.keyword', -1));
+                                const body: Record<string, any> = {
+                                    offset,
+                                    limit
+                                };  
+
+                                if(keyword != -1)
+                                    body.keyword = keyword;
+                    
+                                requestOptions.body = body;
+                                return requestOptions;
+                            }
+                        ]
+                    }
                 },
             },
             {

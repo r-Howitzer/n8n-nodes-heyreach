@@ -1,4 +1,5 @@
-import { INodeProperties } from 'n8n-workflow';
+import {  IExecuteSingleFunctions, IHttpRequestOptions, INodeProperties } from 'n8n-workflow';
+import { cleanNestedExpression } from '../common/CommonFields';
 
 export const campaignOperations:  INodeProperties[] = [
     {
@@ -28,9 +29,26 @@ export const campaignOperations:  INodeProperties[] = [
                                         ...pair.lead.details,
                                         customUserFields: pair.lead.details.customUserFields?.field || []
                                     }
-                                }))}}`,
-                        },
+                                }))}}`,                        
+                            },
                     },
+                    send: {
+                        preSend: [
+                            async function (
+                                this: IExecuteSingleFunctions,
+                                requestOptions: IHttpRequestOptions
+                            ): Promise<IHttpRequestOptions> {
+                                const campaignId = this.getNodeParameter('campaignId');
+                                var accountLeadPairsCleaned = cleanNestedExpression(this.getNodeParameter('accountLeadPairs'));        
+                                requestOptions.body = {
+                                    campaignId,
+                                    accountLeadPairs: accountLeadPairsCleaned,
+                                };
+
+                                return requestOptions;
+                            }
+                        ]
+                    }
                 },
             },
             {
@@ -64,6 +82,36 @@ export const campaignOperations:  INodeProperties[] = [
                             limit: '={{$parameter["limit"]}}',
                         },
                     },
+                    send: {
+                        preSend: [
+                            async function (
+                                this: IExecuteSingleFunctions,
+                                requestOptions: IHttpRequestOptions
+                            ): Promise<IHttpRequestOptions> {
+                                const campaignId = this.getNodeParameter('campaignId');
+                                const offset = this.getNodeParameter('offset');
+                                const limit = this.getNodeParameter('limit');
+                                const timeFrom = cleanNestedExpression(this.getNodeParameter('additionalFields.timeFrom', -1));
+                                const timeTo = cleanNestedExpression(this.getNodeParameter('additionalFields.timeTo', -1));
+                                const timeFilter = cleanNestedExpression(this.getNodeParameter('additionalFields.timeFilter', -1));
+                                const body: Record<string, any> = {
+                                    campaignId,
+                                    offset,
+                                    limit
+                                };  
+
+                                if(timeFrom != -1)
+                                    body.timeFrom = timeFrom;
+                                if(timeTo != -1)
+                                    body.timeTo = timeTo;
+                                if(timeFilter != -1)
+                                    body.timeFilter = timeFilter;
+
+                                requestOptions.body = body;
+                                return requestOptions;
+                            }
+                        ]
+                    }
                 },
             },
             {
@@ -82,6 +130,34 @@ export const campaignOperations:  INodeProperties[] = [
                             limit: '={{$parameter["limit"]}}',
                         },
                     },
+                    send: {
+                        preSend: [
+                            async function (
+                                this: IExecuteSingleFunctions,
+                                requestOptions: IHttpRequestOptions
+                            ): Promise<IHttpRequestOptions> {
+                                const offset = this.getNodeParameter('offset');
+                                const limit = this.getNodeParameter('limit');
+                                const keyword = cleanNestedExpression(this.getNodeParameter('additionalFields.keyword', -1));
+                                const statuses = cleanNestedExpression(this.getNodeParameter('additionalFields.statuses', -1));
+                                const accountIds = cleanNestedExpression(this.getNodeParameter('additionalFields.accountIds', -1));
+                                const body: Record<string, any> = {
+                                    offset,
+                                    limit
+                                };  
+
+                                if(keyword != 1)
+                                    body.keyword = keyword;
+                                if(statuses != -1)
+                                    body.statuses = statuses;
+                                if(accountIds != -1)
+                                    body.accountIds = accountIds;
+
+                                requestOptions.body = body;
+                                return requestOptions;
+                            }
+                        ]
+                    }
                 },
             },
             {
@@ -100,6 +176,34 @@ export const campaignOperations:  INodeProperties[] = [
                             limit: '={{$parameter["limit"]}}',
                         },
                     },
+                    send: {
+                        preSend: [
+                            async function (
+                                this: IExecuteSingleFunctions,
+                                requestOptions: IHttpRequestOptions
+                            ): Promise<IHttpRequestOptions> {
+                                const offset = this.getNodeParameter('offset');
+                                const limit = this.getNodeParameter('limit');
+                                const profileUrl = this.getNodeParameter('additionalFields.profileUrl', -1);
+                                const email = cleanNestedExpression(this.getNodeParameter('additionalFields.email', -1));
+                                const linkedinId = cleanNestedExpression(this.getNodeParameter('additionalFields.linkedinId', -1));
+                                const body: Record<string, any> = {
+                                    offset,
+                                    limit
+                                };  
+
+                                if(profileUrl != -1)
+                                    body.profileUrl = profileUrl;
+                                if(email != -1)
+                                    body.email = email;    
+                                if(linkedinId != -1)
+                                    body.linkedinId = linkedinId;
+
+                                requestOptions.body = body;
+                                return requestOptions;
+                            }
+                        ]
+                    }
                 },
             },
             {

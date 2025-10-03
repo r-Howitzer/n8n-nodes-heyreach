@@ -1,4 +1,5 @@
-import { INodeProperties } from 'n8n-workflow';
+import { IExecuteSingleFunctions, IHttpRequestOptions, INodeProperties } from 'n8n-workflow';
+import { cleanNestedExpression } from '../common/CommonFields';
 
 export const webhookOperations: INodeProperties[] = [
     {
@@ -89,6 +90,34 @@ export const webhookOperations: INodeProperties[] = [
                             isActive: '={{$parameter["additionalFields"]["isActive"]}}',
                         },
                     },
+                    send: {
+                        preSend: [
+                            async function (
+                                this: IExecuteSingleFunctions,
+                                requestOptions: IHttpRequestOptions
+                            ): Promise<IHttpRequestOptions> {
+                                const webhookName = cleanNestedExpression(this.getNodeParameter('additionalFields.webhookName', -1));
+                                const webhookUrl = cleanNestedExpression(this.getNodeParameter('additionalFields.webhookUrl', -1));
+                                const campaignIds = cleanNestedExpression(this.getNodeParameter('additionalFields.campaignIds', -1));
+                                const eventType = cleanNestedExpression(this.getNodeParameter('additionalFields.eventType', -1));
+                                const isActive = this.getNodeParameter('additionalFields.isActive', -1);
+                                const body: Record<string, any> = {};  
+                                if(campaignIds != -1)
+                                    body.campaignIds = campaignIds
+                                if(webhookName != -1)
+                                    body.webhookName = webhookName
+                                if(webhookUrl != -1)
+                                    body.webhookUrl = webhookUrl
+                                if(eventType != -1)
+                                    body.eventType = eventType;
+                                if(isActive != -1)
+                                    body.isActive = isActive;
+
+                                requestOptions.body = body;
+                                return requestOptions;
+                            }
+                        ]
+                    }
                 },
             },
            

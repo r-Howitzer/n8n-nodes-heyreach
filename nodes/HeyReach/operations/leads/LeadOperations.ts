@@ -1,4 +1,5 @@
-import { INodeProperties } from 'n8n-workflow';
+import { IExecuteSingleFunctions, IHttpRequestOptions, INodeProperties } from 'n8n-workflow';
+import { cleanNestedExpression } from '../common/CommonFields';
 
 export const leadOperations: INodeProperties[] = [
     {
@@ -41,6 +42,31 @@ export const leadOperations: INodeProperties[] = [
                             createTagIfNotExisting: '={{$parameter["createTagIfNotExisting"]}}',
                         },
                     },
+                    send: {
+                        preSend: [
+                            async function (
+                                this: IExecuteSingleFunctions,
+                                requestOptions: IHttpRequestOptions
+                            ): Promise<IHttpRequestOptions> {
+                                const tags = this.getNodeParameter('tags');
+                                const createTagIfNotExisting = this.getNodeParameter('createTagIfNotExisting');
+                                const leadProfileUrl = cleanNestedExpression(this.getNodeParameter('additionalFields.profileUrl', -1));
+                                const leadLinkedInId = cleanNestedExpression(this.getNodeParameter('additionalFields.leadLinkedInId', -1));
+                                const body: Record<string, any> = {
+                                    tags,
+                                    createTagIfNotExisting
+                                };  
+                                
+                                if(leadProfileUrl != -1)
+                                    body.leadProfileUrl = leadProfileUrl;
+                                if(leadLinkedInId != -1)
+                                    body.leadLinkedInId = leadLinkedInId;
+                    
+                                requestOptions.body = body;
+                                return requestOptions;
+                            }
+                        ]
+                    }
                 },
             },
             {
@@ -72,6 +98,31 @@ export const leadOperations: INodeProperties[] = [
                             createTagIfNotExisting: '={{$parameter["createTagIfNotExisting"]}}',
                         },
                     },
+                    send: {
+                        preSend: [
+                            async function (
+                                this: IExecuteSingleFunctions,
+                                requestOptions: IHttpRequestOptions
+                            ): Promise<IHttpRequestOptions> {
+                                const tags = this.getNodeParameter('tags');
+                                const createTagIfNotExisting = this.getNodeParameter('createTagIfNotExisting');
+                                const leadProfileUrl = cleanNestedExpression(this.getNodeParameter('additionalFields.profileUrl', -1));
+                                const leadLinkedInId = cleanNestedExpression(this.getNodeParameter('additionalFields.leadLinkedInId', -1));
+                                const body: Record<string, any> = {
+                                    tags,
+                                    createTagIfNotExisting
+                                };  
+
+                                if(leadProfileUrl != -1)
+                                    body.leadProfileUrl = leadProfileUrl;
+                                if(leadLinkedInId != -1)
+                                    body.leadLinkedInId = leadLinkedInId;
+                    
+                                requestOptions.body = body;
+                                return requestOptions;
+                            }
+                        ]
+                    }
                 },
             },
         ],

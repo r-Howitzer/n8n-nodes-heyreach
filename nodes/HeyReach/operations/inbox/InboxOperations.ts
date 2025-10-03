@@ -1,4 +1,5 @@
-import { INodeProperties } from 'n8n-workflow';
+import { IExecuteSingleFunctions, IHttpRequestOptions, INodeProperties } from 'n8n-workflow';
+import { cleanNestedExpression } from '../common/CommonFields';
 
 export const inboxOperations: INodeProperties[] = [
     {
@@ -35,6 +36,44 @@ export const inboxOperations: INodeProperties[] = [
                             limit: '={{$parameter["limit"]}}',
                         },
                     },
+                    send: {
+                        preSend: [
+                            async function (
+                                this: IExecuteSingleFunctions,
+                                requestOptions: IHttpRequestOptions
+                            ): Promise<IHttpRequestOptions> {
+                                const offset = this.getNodeParameter('offset');
+                                const limit = this.getNodeParameter('limit');
+                                const seen = cleanNestedExpression(this.getNodeParameter('additionalFields.seen', -1));
+                                const linkedInAccountIds = cleanNestedExpression(this.getNodeParameter('additionalFields.linkedInAccountIds', -1));
+                                const campaignIds = cleanNestedExpression(this.getNodeParameter('additionalFields.campaignIds', -1));
+                                const searchString = cleanNestedExpression(this.getNodeParameter('additionalFields.searchString', -1));
+                                const leadLinkedInId = cleanNestedExpression(this.getNodeParameter('additionalFields.leadLinkedInId', -1));
+                                const leadProfileUrl = cleanNestedExpression(this.getNodeParameter('additionalFields.leadProfileUrl', -1));
+                                const filters: Record<string, any> = {};  
+                                if (seen !== -1)
+                                     filters.seen = seen;
+                                if (linkedInAccountIds !== -1) 
+                                    filters.linkedInAccountIds = linkedInAccountIds;
+                                if (campaignIds !== -1)
+                                     filters.campaignIds = campaignIds;
+                                if (searchString !== -1) 
+                                    filters.searchString = searchString;
+                                if (leadLinkedInId !== -1) 
+                                    filters.leadLinkedInId = leadLinkedInId;
+                                if (leadProfileUrl !== -1) 
+                                    filters.leadProfileUrl = leadProfileUrl;
+
+                                requestOptions.body = {
+                                    filters,
+                                    offset,
+                                    limit,
+                                };
+
+                                return requestOptions;
+                            }
+                        ]
+                    }
                 },
             },
             {
