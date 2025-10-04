@@ -1,6 +1,6 @@
 {
     "name": "n8n-nodes-heyreach",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "n8n node to call HeyReach public API's",
     "keywords": [
         "heyreach",
