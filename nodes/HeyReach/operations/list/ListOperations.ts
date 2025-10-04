@@ -38,7 +38,6 @@ export const listOperations: INodeProperties[] = [
                                 const listId = this.getNodeParameter('listId');
                                 const leadsRaw = this.getNodeParameter('wrapperLeads.leads', []) as any[];
                                 const leadsCleaned = cleanNestedExpression(leadsRaw)
-                                .filter((lead: any) => lead && typeof lead === 'object')
                                 .map((lead: any) => ({
                                     ...lead,
                                     customUserFields: lead.customUserFields?.field || [], // flatten
