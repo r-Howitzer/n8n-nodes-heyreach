@@ -28,6 +28,27 @@ export const webhookOperations: INodeProperties[] = [
                             campaignIds: '={{ $parameter["campaignIds"] ?? [] }}',
                         },
                     },
+                    send: {
+                        preSend: [
+                            async function (
+                                this: IExecuteSingleFunctions,
+                                requestOptions: IHttpRequestOptions
+                            ): Promise<IHttpRequestOptions> {
+                                const webhookName = cleanNestedExpression(this.getNodeParameter('webhookName', -1));
+                                const webhookUrl = cleanNestedExpression(this.getNodeParameter('webhookUrl', -1));
+                                const eventType = cleanNestedExpression(this.getNodeParameter('eventType', -1));
+                                const campaignIds = cleanNestedExpression(this.getNodeParameter('campaignIds', []));
+                                requestOptions.body = {
+                                    webhookName,
+                                    webhookUrl,
+                                    campaignIds,
+                                    eventType
+                                };
+
+                                return requestOptions;
+                            }
+                        ]
+                    }
                 },
             },
             {
@@ -98,12 +119,12 @@ export const webhookOperations: INodeProperties[] = [
                             ): Promise<IHttpRequestOptions> {
                                 const webhookName = cleanNestedExpression(this.getNodeParameter('additionalFields.webhookName', -1));
                                 const webhookUrl = cleanNestedExpression(this.getNodeParameter('additionalFields.webhookUrl', -1));
-                                const campaignIds = cleanNestedExpression(this.getNodeParameter('additionalFields.campaignIds', -1));
+                                var campaignIds = cleanNestedExpression(this.getNodeParameter('additionalFields.campaignIds', -1));
                                 const eventType = cleanNestedExpression(this.getNodeParameter('additionalFields.eventType', -1));
                                 const isActive = this.getNodeParameter('additionalFields.isActive', -1);
                                 const body: Record<string, any> = {};  
-                                if(campaignIds != -1)
-                                    body.campaignIds = campaignIds
+                                if(campaignIds == -1)
+                                    campaignIds = null;
                                 if(webhookName != -1)
                                     body.webhookName = webhookName
                                 if(webhookUrl != -1)
@@ -112,7 +133,10 @@ export const webhookOperations: INodeProperties[] = [
                                     body.eventType = eventType;
                                 if(isActive != -1)
                                     body.isActive = isActive;
-
+                                if(eventType === 'EVERY_MESSAGE_REPLY_RECEIVED' || eventType === 'LEAD_TAG_UPDATED')
+                                    campaignIds = [];
+                                
+                                body.campaignIds = campaignIds;
                                 requestOptions.body = body;
                                 return requestOptions;
                             }

@@ -39,7 +39,16 @@ export const campaignOperations:  INodeProperties[] = [
                                 requestOptions: IHttpRequestOptions
                             ): Promise<IHttpRequestOptions> {
                                 const campaignId = this.getNodeParameter('campaignId');
-                                var accountLeadPairsCleaned = cleanNestedExpression(this.getNodeParameter('accountLeadPairs'));        
+                                const rawPairs = this.getNodeParameter('accountLeadPairs.pair', []) as any[];
+                                const accountLeadPairsCleaned = rawPairs.filter(pair => pair.lead?.details)
+                                .map(pair => ({
+                                    linkedInAccountId: parseInt(pair.linkedInAccountId, 10),
+                                    lead: {
+                                        ...pair.lead.details,
+                                        customUserFields: pair.lead.details.customUserFields?.field || []
+                                    }
+                                }));
+
                                 requestOptions.body = {
                                     campaignId,
                                     accountLeadPairs: accountLeadPairsCleaned,
@@ -146,7 +155,7 @@ export const campaignOperations:  INodeProperties[] = [
                                     limit
                                 };  
 
-                                if(keyword != 1)
+                                if(keyword != -1)
                                     body.keyword = keyword;
                                 if(statuses != -1)
                                     body.statuses = statuses;
@@ -184,7 +193,7 @@ export const campaignOperations:  INodeProperties[] = [
                             ): Promise<IHttpRequestOptions> {
                                 const offset = this.getNodeParameter('offset');
                                 const limit = this.getNodeParameter('limit');
-                                const profileUrl = this.getNodeParameter('additionalFields.profileUrl', -1);
+                                const profileUrl = this.getNodeParameter('profileUrl', -1);
                                 const email = cleanNestedExpression(this.getNodeParameter('additionalFields.email', -1));
                                 const linkedinId = cleanNestedExpression(this.getNodeParameter('additionalFields.linkedinId', -1));
                                 const body: Record<string, any> = {

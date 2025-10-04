@@ -36,15 +36,13 @@ export const linkedInAccountOperations: INodeProperties[] = [
                             ): Promise<IHttpRequestOptions> {
                                 const offset = this.getNodeParameter('offset');
                                 const limit = this.getNodeParameter('limit');
-                                const keyword = cleanNestedExpression(this.getNodeParameter('additionalFields.keyword', -1));
+                                const keyword = cleanNestedExpression(this.getNodeParameter('additionalFields.keyword', ''));
                                 const body: Record<string, any> = {
                                     offset,
-                                    limit
+                                    limit,
+                                    keyword
                                 };  
 
-                                if(keyword != -1)
-                                    body.keyword = keyword;
-                    
                                 requestOptions.body = body;
                                 return requestOptions;
                             }

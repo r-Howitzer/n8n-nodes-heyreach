@@ -51,17 +51,17 @@ export const inboxOperations: INodeProperties[] = [
                                 const leadLinkedInId = cleanNestedExpression(this.getNodeParameter('additionalFields.leadLinkedInId', -1));
                                 const leadProfileUrl = cleanNestedExpression(this.getNodeParameter('additionalFields.leadProfileUrl', -1));
                                 const filters: Record<string, any> = {};  
-                                if (seen !== -1)
+                                if (seen != -1)
                                      filters.seen = seen;
-                                if (linkedInAccountIds !== -1) 
+                                if (linkedInAccountIds != -1) 
                                     filters.linkedInAccountIds = linkedInAccountIds;
-                                if (campaignIds !== -1)
+                                if (campaignIds != -1)
                                      filters.campaignIds = campaignIds;
-                                if (searchString !== -1) 
+                                if (searchString != -1) 
                                     filters.searchString = searchString;
-                                if (leadLinkedInId !== -1) 
+                                if (leadLinkedInId != -1) 
                                     filters.leadLinkedInId = leadLinkedInId;
-                                if (leadProfileUrl !== -1) 
+                                if (leadProfileUrl != -1) 
                                     filters.leadProfileUrl = leadProfileUrl;
 
                                 requestOptions.body = {

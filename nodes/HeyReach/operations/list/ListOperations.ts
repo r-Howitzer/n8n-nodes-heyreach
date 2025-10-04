@@ -36,7 +36,13 @@ export const listOperations: INodeProperties[] = [
                                 requestOptions: IHttpRequestOptions
                             ): Promise<IHttpRequestOptions> {
                                 const listId = this.getNodeParameter('listId');
-                                var leadsCleaned = cleanNestedExpression(this.getNodeParameter('leads'));        
+                                const leadsRaw = this.getNodeParameter('wrapperLeads.leads', []) as any[];
+                                const leadsCleaned = cleanNestedExpression(leadsRaw)
+                                .filter((lead: any) => lead && typeof lead === 'object')
+                                .map((lead: any) => ({
+                                    ...lead,
+                                    customUserFields: lead.customUserFields?.field || [], // flatten
+                                }));
                                 requestOptions.body = {
                                     listId,
                                     leads: leadsCleaned,
@@ -63,7 +69,7 @@ export const listOperations: INodeProperties[] = [
                     },
                 },
             },
-                        {
+            {
                 name: 'Delete Leads (By LinkedIn ID)',
                 value: 'deleteLeadsFromList',
                 // eslint-disable-next-line n8n-nodes-base/node-param-operation-option-action-miscased
@@ -77,6 +83,22 @@ export const listOperations: INodeProperties[] = [
                             leadMemberIds: '={{$parameter["leadMemberIds"]}}',
                         },
                     },
+                    send: {
+                        preSend: [
+                            async function (
+                                this: IExecuteSingleFunctions,
+                                requestOptions: IHttpRequestOptions
+                            ): Promise<IHttpRequestOptions> {
+                                const listId = this.getNodeParameter('listId', 0);
+                                const leadMemberIds = this.getNodeParameter('leadMemberIds', []) as any[];
+                                requestOptions.body = {
+                                    listId,
+                                    leadMemberIds,
+                                };
+                                return requestOptions;
+                            }
+                        ]
+                    }
                 },
             },
             {
@@ -93,6 +115,23 @@ export const listOperations: INodeProperties[] = [
                             profileUrls: '={{$parameter["leadProfileUrls"]}}',
                         },
                     },
+                    send: {
+                        preSend: [
+                            async function (
+                                this: IExecuteSingleFunctions,
+                                requestOptions: IHttpRequestOptions
+                            ): Promise<IHttpRequestOptions> {
+                                const listId = this.getNodeParameter('listId');
+                                const profileUrls = cleanNestedExpression(this.getNodeParameter('leadProfileUrls', []));
+                                requestOptions.body = {
+                                    listId,
+                                    profileUrls,
+                                };
+                                
+                                return requestOptions;
+                            }
+                        ]
+                    }
                 },
             },
             {

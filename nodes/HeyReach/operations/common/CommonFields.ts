@@ -182,15 +182,6 @@ export function cleanNestedExpression(input: any): any {
   if (typeof input === 'string') {
     return input.replace(/=\{\{([^}]+)\}\}/g, '$1').trim();
   }
-  if (Array.isArray(input)) {
-    return input.map(cleanNestedExpression);
-  }
-  if (typeof input === 'object' && input !== null) {
-    const cleanedObj: any = {};
-    for (const key of Object.keys(input)) {
-      cleanedObj[key] = cleanNestedExpression(input[key]);
-    }
-    return cleanedObj;
-  }
+
   return input;
 }
